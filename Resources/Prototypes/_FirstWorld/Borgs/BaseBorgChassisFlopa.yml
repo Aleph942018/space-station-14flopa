@@ -1,0 +1,224 @@
+###########################################################################
+#########Базы для боргов###################################################
+
+- type: entity
+  id: BaseBorgChassisFlopMaid
+  parent: [BaseBorgChassis, BaseBorgTransponder]
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _FirstWorld/robots/robomaid.rsi
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+  - type: Access
+    enabled: false
+    groups:
+    - AllAccess
+  - type: AccessReader
+    access: [["Command"], ["Research"]]
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+
+- type: entity
+  id: BaseBorgChassisFlopMiss
+  parent: [BaseBorgChassis, BaseBorgTransponder]
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _FirstWorld/robots/robomiss.rsi
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen
+  - type: Access
+    enabled: false
+    groups:
+    - AllAccess
+  - type: AccessReader
+    access: [["Command"], ["Research"]]
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+
+- type: entity
+  id: BaseBorgChassisSyndicateMeka
+  parent: BaseBorgChassis
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _FirstWorld/robots/meka.rsi
+  - type: NpcFactionMember
+    factions:
+    - Syndicate
+  - type: Access
+    tags:
+    - NuclearOperative
+    - SyndicateAgent
+  - type: AccessReader
+    access: [["SyndicateAgent"], ["NuclearOperative"]]
+  - type: SiliconLawProvider
+    laws: SyndicateStatic
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Syndicate
+  - type: ActiveRadio
+    channels:
+    - Syndicate
+  - type: ShowSyndicateIcons
+  - type: MovementAlwaysTouching
+  - type: Speech
+    speechSounds: SyndieBorg
+  - type: Vocal
+    sounds:
+      Unsexed: UnisexSiliconSyndicate
+  - type: PointLight
+    color: "#dd200b"
+
+#############################################################################
+############ эщ эщ эщщщщкере борги################################
+
+
+
+- type: entity
+  id: BorgChassisKawaiiMaid
+  parent: BaseBorgChassisFlopMaid
+  name: Мэйдо-борг
+  components:
+  - type: Sprite
+    layers:
+    - state: robomaid_sd
+    - state: robomaid_sd_e
+      map: ["enum.BorgVisualLayers.Light"]
+      shader: unshaded
+      visible: false
+    - state: robomaid_sd_l
+      shader: unshaded
+      map: ["light"]
+      visible: false
+  - type: BorgChassis
+    maxModules: 4
+    moduleWhitelist:
+      tags:
+      - BorgModuleGeneric
+      - BorgModuleService
+    hasMindState: robomaid_sd_e
+    noMindState: robomaid_sd_e_r
+  - type: BorgTransponder
+    sprite:
+      sprite: Mobs/Silicon/chassis.rsi
+      state: service
+    name: service cyborg
+  - type: Construction
+    node: service
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Service
+    - Binary
+    - Common
+    - Science
+  - type: ActiveRadio
+    channels:
+    - Service
+    - Binary
+    - Common
+    - Science
+  - type: AccessReader
+    access: [["Service"], ["Command"], ["Research"]]
+  - type: Inventory
+    templateId: borgTall
+  - type: InteractionPopup
+    interactSuccessString: petting-success-service-cyborg
+    interactFailureString: petting-failure-service-cyborg
+    interactSuccessSound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+
+
+
+- type: entity
+  id: BorgChassisKawaiiMiss
+  parent: BaseBorgChassisFlopMiss
+  name: Миссис-борг
+  components:
+  - type: Sprite
+    layers:
+    - state: missm_janitor
+    - state: missm_janitor_e
+      map: ["enum.BorgVisualLayers.Light"]
+      shader: unshaded
+      visible: false
+    - state: missm_janitor_l
+      shader: unshaded
+      map: ["light"]
+      visible: false
+  - type: BorgChassis
+    maxModules: 4
+    moduleWhitelist:
+      tags:
+      - BorgModuleGeneric
+      - BorgModuleService
+    hasMindState: missm_janitor_e
+    noMindState: missm_janitor_e_r
+  - type: BorgTransponder
+    sprite:
+      sprite: Mobs/Silicon/chassis.rsi
+      state: service
+    name: service cyborg
+  - type: Construction
+    node: service
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Service
+    - Binary
+    - Common
+    - Science
+  - type: ActiveRadio
+    channels:
+    - Service
+    - Binary
+    - Common
+    - Science
+  - type: AccessReader
+    access: [["Service"], ["Command"], ["Research"]]
+  - type: Inventory
+    templateId: borgTall
+  - type: InteractionPopup
+    interactSuccessString: petting-success-service-cyborg
+    interactFailureString: petting-failure-service-cyborg
+    interactSuccessSound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+
+
+
+- type: entity
+  id: BorgChassisSyndicateMEKAV2
+  parent: BaseBorgChassisSyndicateMeka
+  name: V2 M.E.K.A
+  description: Кровь это топливо. Космос полон.
+  components:
+    - type: Sprite
+      layers:
+        - state: fmekasyndi
+        - state: fmekasyndi_e
+          map: ["enum.BorgVisualLayers.Light"]
+          shader: unshaded
+          visible: false
+        - state: fmekasyndi_l
+          shader: unshaded
+          map: ["light"]
+          visible: false
+    - type: BorgChassis
+      maxModules: 3
+      moduleWhitelist:
+        tags:
+          - BorgModuleGeneric
+          - BorgModuleSyndicate
+          - BorgModuleSyndicateAssault
+      hasMindState: fmekasyndi_e
+      noMindState: fmekasyndi
+    - type: Construction
+      node: syndicateassault
+    - type: InteractionPopup
+      interactSuccessString: petting-success-syndicate-cyborg
+      interactFailureString: petting-failure-syndicate-cyborg
+      interactSuccessSound:
+        path: /Audio/Ambience/Objects/periodic_beep.ogg
